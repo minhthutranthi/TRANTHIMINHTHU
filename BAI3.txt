@@ -1,0 +1,29 @@
+from ._anvil_designer import Form1Template
+from anvil import *
+
+class Form1(Form1Template):
+  def __init__(self, **properties):
+    # Set Form properties and Data Bindings.
+    self.init_components(**properties)
+
+    # Any code you write here will run before the form opens.
+
+def button_click(self, **event_args):
+    """This method is called when the button is clicked"""
+    numbers_str = self.text_box.text
+    numbers_list = [int(num) for num in numbers_str.split() if num.isdigit()]
+   
+    if len(numbers_list) == 0:
+        alert("Vui lòng nhập vào các số nguyên cách nhau bằng khoảng trắng.")
+        return
+   
+    # Hàm sắp xếp dãy số bằng thuật toán Selection Sort
+    for i in range(len(numbers_list) - 1):
+        min_idx = i
+        for j in range(i + 1, len(numbers_list)):
+            if numbers_list[j] < numbers_list[min_idx]:
+                min_idx = j
+        numbers_list[i], numbers_list[min_idx] = numbers_list[min_idx], numbers_list[i]
+   
+    # Hiển thị kết quả trong một label
+    self.label.text = 'Dãy số sau khi sắp xếp: ' + ' '.join(map(str, numbers_list))
